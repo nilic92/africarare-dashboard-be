@@ -1,0 +1,287 @@
+html
+  head
+  body
+    style.
+      body {
+        font-family:"Arial";
+        /*font-family: 'verdanaregular';*/
+        /*letter-spacing: 0.0mm !important;*/
+        /*text-align: justify;*/
+        font-kerning: auto;
+      }
+      table {
+      width: 100%;
+      }
+      tr {
+      line-height: 1.4;
+      }
+      td {
+      /*border: 1px black solid;*/
+      font-size: 14px;
+      }
+      #products-table td{
+        font-size: 12px;
+      }
+      #header-col-1 {
+      width: 39%;
+      }
+      #header-col-2 {
+      width: 61%;
+      }
+      /*#header-col-3 {*/
+      /*    width: 44%;*/
+      /*}*/
+      #logo-wrapper {
+      vertical-align: top;
+      text-align: left;
+      }
+      #logo {
+      height:80px;
+      max-width:300px;
+      }
+      #document-type-wrapper {
+      text-align: right;
+      line-height: 1.4;
+      vertical-align: top;
+      }
+      #document-type {
+      font-size: 24px;
+      }
+      #receiver-details-wrapper td {
+      vertical-align: top;
+      }
+      #receiver-details-wrapper td:nth-child(2) {
+      text-align: right;
+      }
+      #receiver-details-wrapper-col-1 {
+      width: 50%;
+      }
+      #receiver-details-wrapper-col-2 {
+      width: 35%;
+      }
+      #receiver-details-wrapper-col-3 {
+      width: 15%;
+      }
+      #products-table-col-0 {
+      width: 5%;
+      }
+      #products-table-col-1 {
+      width: 15%;
+      }
+      #products-table-col-2 {
+      width: 15%;
+      }
+      #products-table-col-3 {
+      width: 13%;
+      }
+      #products-table-col-4 {
+      width: 13%;
+      }
+      #products-table-col-5 {
+      width: 13%;
+      }
+      #products-table-col-6 {
+      width: 13%;
+      }
+      #products-table-col-7 {
+      width: 13%;
+      }
+      #products-table thead tr td:nth-child(1),
+      #products-table thead tr td:nth-child(2) {
+      text-align: left;
+      }
+      #products-table thead tr td {
+      text-align: right;
+      }
+      #products-table tbody tr td:nth-child(1),
+      #products-table tbody tr td:nth-child(2) {
+      text-align: left;
+      }
+      #products-table tbody tr td{
+      text-align: right;
+      }
+      #total-wrapper-col-1 {
+      width: 60%;
+      }
+      #total-wrapper-col-2 {
+      width: 24%;
+      }
+      #total-wrapper-col-3 {
+      width: 16%;
+      }
+      #total-wrapper td {
+      text-align: right;
+      }
+      #bottom-notice-wrapper-col-1 {
+      width: 100%;
+      }
+      #bottom-notice-wrapper tbody tr td {
+      text-align: center;
+      }
+      #link {
+        color: #cab681;
+      }
+    table#header
+      tbody
+        tr
+          th#header-col-1
+          th#header-col-2
+        tr
+          td#logo-wrapper
+            p
+              img#logo(src="#{logo}" alt="Logo")
+          td#document-type-wrapper
+            p#document-type
+              b #{document_title}
+            p
+            b #{company_from}
+            br
+            | #{email_from}
+            br
+            | #{address_from}
+            br
+            | #{zip_from}, #{city_from}
+            br
+            | #{country_from}
+            br
+            | #{vat_title}: #{vat_from}
+            br
+            | #{registration_number_title}: #{registration_number_from}
+            br
+            | #{account_number_title}: #{account_number}
+    br
+    hr
+    table#receiver-details-wrapper
+      tbody
+        tr
+          th#receiver-details-wrapper-col-1
+          th#receiver-details-wrapper-col-2
+          th#receiver-details-wrapper-col-3
+        tr
+          td
+            b #{company_to}
+            br
+            | #{mail_to}
+            br
+            | #{address_to}
+            br
+            | #{zip_to}, #{city_to}
+            br
+            | #{country_to}
+            br
+            | #{vat_title}: #{vat_to}
+            br
+            | #{registration_number_title}: #{registration_number_to}
+          td#details-label-wrapper
+            b #{number_title}:
+            br
+            b #{sale_date_title}:
+            br
+            b #{date_title}:
+            br
+            b #{due_date_title}:
+          td
+            | #{number}
+            br
+            | #{sale_date}
+            br
+            | #{date}
+            br
+            | #{due_date}
+    br
+    br
+    products
+    table#products-table
+      thead
+        tr
+          th#products-table-col-0
+          th#products-table-col-1
+          th#products-table-col-2
+          th#products-table-col-3
+          th#products-table-col-4
+          th#products-table-col-5
+          th#products-table-col-6
+          th#products-table-col-7
+        tr
+          td 
+            b #{products_header_number}
+          td
+            b #{products_header_products}
+          td
+            b #{products_header_ppu}
+          td
+            b #{products_header_amount}
+          td
+            b #{products_header_price_net}
+          td
+            b #{products_header_vat}
+          td
+            b #{products_header_vat_amount}
+          td
+            b #{products_header_total}
+        tr
+          td(colspan='8')
+            hr
+      tbody
+        each product, index in products
+          tr
+            td #{index + 1}
+            td #{product.description}
+            td #{product.ppu}
+            td #{product.amount}
+            td #{product.price_net}
+            td #{product.vat}%
+            td #{product.vat_amount}
+            td #{product.row_total}
+          tr
+            td(colspan='8')
+              hr
+
+    br
+    tax
+    table#total-wrapper
+      thead
+        tr
+          th#total-wrapper-col-1
+          th#total-wrapper-col-2
+          th#total-wrapper-col-3
+        tr
+          td
+          td
+            b #{subtotal_title}:
+          td #{subtotal}
+      tbody
+        tr
+          td
+          td
+            b #{tax_notation} #{tax_rate}%:
+          td #{tax}
+      tfoot
+        tr
+          td
+          td(colspan='2')
+            hr
+        tr
+          td
+          td
+            b #{total_title}:
+          td #{total}
+    br
+    br
+    table#note-wrapper
+      thead
+        tr
+          th#note-wrapper-col-1
+      tbody
+        tr
+          td
+            b #{note_title}: 
+            span  #{note}
+    table#bottom-notice-wrapper
+      thead
+        tr
+          th#bottom-notice-wrapper-col-1
+      tbody
+        tr
+          td #{bottom_notice}
+            a(href="https://www.destiliraj.rs/" target="_blank" id="link") www.destiliraj.rs
