@@ -1,0 +1,41 @@
+import { Router } from 'express';
+import defineRoutes from 'helpers/defineRoutes';
+
+import {
+	postLevel as postLevelController,
+	putLevel as putLevelController,
+	deleteLevel as deleteLevelController,
+} from 'controllers/level';
+import {
+	postLevel as postLevelValidator,
+	putLevel as putlevelValidator,
+} from 'validators/level';
+
+const router = Router();
+defineRoutes(router, [
+	{
+		method: 'post',
+		route: '/',
+		roles: ['portal-admin'],
+		permissions: ['write:levels'],
+		validator: postLevelValidator,
+		controller: postLevelController,
+	},
+	{
+		method: 'put',
+		route: '/:id',
+		roles: ['portal-admin', 'land-owner'],
+		permissions: ['update:levels'],
+		validator: putlevelValidator,
+		controller: putLevelController,
+	},
+	{
+		method: 'delete',
+		route: '/:id',
+		roles: ['portal-admin'],
+		permissions: ['delete:levels'],
+		controller: deleteLevelController,
+	},
+]);
+
+export default router;
