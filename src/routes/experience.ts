@@ -2,9 +2,11 @@ import { Router } from 'express';
 import defineRoutes from 'helpers/defineRoutes';
 
 import {
+	getExperiences as getExperienceController,
 	postExperience as postExperienceController,
 	putExperience as putExperienceController,
 	deleteExperience as deleteExperienceController,
+	getSingleExperience as getSingleExperienceController,
 } from 'controllers/experience';
 import {
 	postExperience as postExperienceValidator,
@@ -13,6 +15,13 @@ import {
 
 const router = Router();
 defineRoutes(router, [
+	{
+		method: 'get',
+		route: '/',
+		roles: ['portal-admin'],
+		permissions: ['read:experiences'],
+		controller: getExperienceController,
+	},
 	{
 		method: 'post',
 		route: '/',
@@ -35,6 +44,13 @@ defineRoutes(router, [
 		roles: ['portal-admin'],
 		permissions: ['delete:experiences'],
 		controller: deleteExperienceController,
+	},
+	{
+		method: 'get',
+		route: '/:id',
+		roles: ['portal-admin'],
+		permissions: ['read:experiences'],
+		controller: getSingleExperienceController,
 	},
 ]);
 

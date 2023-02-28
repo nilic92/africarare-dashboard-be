@@ -8,13 +8,11 @@ import Land from 'models/land';
 
 export const getLands: RequestHandler = async (req, res, next) => {
 	try {
-		const { organisationId } = req.auth;
 
 		const { data: lands, count } = await queryFilter({
 			Model: Land,
 			query: req.query,
 			searchFields: ['name'],
-			defaultFilters: { organisation: organisationId },
 		});
 
 		res.json({

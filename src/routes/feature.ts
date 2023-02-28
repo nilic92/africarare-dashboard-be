@@ -2,9 +2,11 @@ import { Router } from 'express';
 import defineRoutes from 'helpers/defineRoutes';
 
 import {
+	getFeatures as getFeaturesController,
 	postFeature as postFeatureController,
 	putFeature as putFeatureController,
 	deleteFeature as deleteFeatureController,
+	getSingleFeature as getSingleFeatureController 
 } from 'controllers/feature';
 import {
 	postFeature as postFeatureValidator,
@@ -13,6 +15,13 @@ import {
 
 const router = Router();
 defineRoutes(router, [
+	{
+		method: 'get',
+		route: '/',
+		roles: ['portal-admin'],
+		permissions: ['read:features'],
+		controller: getFeaturesController,
+	},
 	{
 		method: 'post',
 		route: '/',
@@ -35,6 +44,13 @@ defineRoutes(router, [
 		roles: ['portal-admin'],
 		permissions: ['delete:features'],
 		controller: deleteFeatureController,
+	},
+	{
+		method: 'get',
+		route: '/:id',
+		roles: ['portal-admin'],
+		permissions: ['read:features'],
+		controller: getSingleFeatureController,
 	},
 ]);
 
