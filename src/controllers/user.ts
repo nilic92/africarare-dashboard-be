@@ -16,7 +16,6 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 			searchFields: ['name', 'email'],
 			defaultFilters: { organisation: organisationId, _id: { $ne: id } },
 		});
-		console.log(users);
 
 		res.json({
 			data: users,
@@ -142,11 +141,10 @@ export const getSingleUnconfirmedUser: RequestHandler = async (req, res, next) =
 };
 
 export const getSingleUserHistory: RequestHandler = async (req, res, next) => {
-
 	try {
 		const { id } = req.params;
 		const { property } = req.query;
-		const user = (await User.findById(id).populate("history"));
+		const user = await User.findById(id).populate('history');
 
 		let history;
 
@@ -159,10 +157,8 @@ export const getSingleUserHistory: RequestHandler = async (req, res, next) => {
 		res.json({
 			data: history,
 		});
-
 	} catch (err) {
 		next(err);
-		console.log(err)
+		console.log(err);
 	}
 };
-

@@ -11,7 +11,7 @@ export const getMe: RequestHandler = async (req, res, next) => {
 		const { id } = req.auth;
 
 		const me = await User.findById(id).populate('organisation');
-		console.log(me)
+
 		if (me) {
 			me.permissions = adminPermissions;
 		}

@@ -171,8 +171,7 @@
 					"type": "string",
 					"enum": [
 						"portal-admin",
-						"organisation-owner",
-						"organisation-employee"
+						"land-owner"
 					]
 				},
 				"permissions": {

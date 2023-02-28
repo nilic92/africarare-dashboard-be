@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Express } from 'express';
 
-const PORT: number | string = process.env.PORT || 8088;
+const PORT: number | string = process.env.PORT || 8080;
 
 export default function (app: Express) {
 	mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/africarare-database');
