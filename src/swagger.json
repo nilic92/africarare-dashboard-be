@@ -2,14 +2,14 @@
 	"swagger": "2.0",
 	"info": {
 		"version": "1.0.0-alpha",
-		"title": "Destilery API",
+		"title": "Africarare API",
 		"description": "Destilery API Information",
 		"license": {
 			"name": "MIT",
-			"url": "https://opensource.org/licenses/MIT"
+			"url": "https://Africarare.org/licenses/MIT"
 		}
 	},
-	"host": "https://destilerija-be.herokuapp.com",
+	"host": "https://africarare-be.herokuapp.com",
 	"basePath": "/api",
 	"schemes": [
 		"http"
@@ -26,55 +26,7 @@
 			"description": ""
 		},
 		{
-			"name": "Bottling",
-			"description": ""
-		},
-		{
-			"name": "Cost",
-			"description": ""
-		},
-		{
-			"name": "Currency",
-			"description": ""
-		},
-		{
-			"name": "Distillation",
-			"description": ""
-		},
-		{
-			"name": "Invoice",
-			"description": ""
-		},
-		{
 			"name": "Organisation",
-			"description": ""
-		},
-		{
-			"name": "Package Group",
-			"description": ""
-		},
-		{
-			"name": "Partner",
-			"description": ""
-		},
-		{
-			"name": "Processing",
-			"description": ""
-		},
-		{
-			"name": "Procurement",
-			"description": ""
-		},
-		{
-			"name": "Product",
-			"description": ""
-		},
-		{
-			"name": "Profit",
-			"description": ""
-		},
-		{
-			"name": "Sale",
 			"description": ""
 		},
 		{
@@ -82,7 +34,19 @@
 			"description": ""
 		},
 		{
-			"name": "Waste",
+			"name": "Land",
+			"description": ""
+		},
+		{
+			"name": "Experience",
+			"description": ""
+		},
+		{
+			"name": "Level",
+			"description": ""
+		},
+		{
+			"name": "Feature",
 			"description": ""
 		}
 	],
@@ -104,375 +68,7 @@
 				"lng"
 			]
 		},
-		"VatRate": {
-			"type": "number",
-			"enum": [
-				0,
-				10,
-				20
-			]
-		},
-		"ProductUnit": {
-			"type": "string",
-			"enum": [
-				"kg",
-				"l",
-				"pcs"
-			]
-		},
-		"InvoiceStatus": {
-			"type": "string",
-			"enum": [
-				"draft",
-				"sent"
-			]
-		},
-		"ProcurementSaleProduct": {
-			"type": "object",
-			"properties": {
-				"product": {
-					"description": "Product ID.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Product"
-				},
-				"quantity": {
-					"description": "Product quantity.\n@example 1",
-					"type": "number"
-				},
-				"pricePerUnit": {
-					"description": "Product price per unit.\n@example 500",
-					"type": "number"
-				},
-				"priceNet": {
-					"description": "Product NET price.\n@example 500",
-					"type": "number"
-				},
-				"price": {
-					"description": "Product price.\n@example 650",
-					"type": "number"
-				}
-			},
-			"required": [
-				"product",
-				"quantity",
-				"pricePerUnit",
-				"priceNet",
-				"price"
-			]
-		},
-		"Bottling": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Bottling ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"code": {
-					"description": "Bottling Code.\n@example FL001",
-					"type": "string"
-				},
-				"fromProduct": {
-					"description": "Bottling From Product.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Product"
-				},
-				"fromQuantity": {
-					"description": "Bottling From Quantity.\n@example 300",
-					"type": "number"
-				},
-				"package": {
-					"description": "Bottling Package.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/PackageGroup"
-				},
-				"packageQuantity": {
-					"description": "Bottling Package Quantity.\n@example 300",
-					"type": "number"
-				},
-				"toProduct": {
-					"description": "Bottling To Product.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Product"
-				},
-				"toQuantity": {
-					"description": "Bottling To Quantity.\n@example 300",
-					"type": "number"
-				},
-				"date": {
-					"description": "Bottling Date.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"note": {
-					"description": "Bottling Note.\n@example New bottling",
-					"type": "string"
-				},
-				"updatedAt": {
-					"description": "Bottling Updated At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"createdAt": {
-					"description": "Bottling Created At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				}
-			},
-			"required": [
-				"_id",
-				"code",
-				"fromProduct",
-				"fromQuantity",
-				"package",
-				"packageQuantity",
-				"toProduct",
-				"toQuantity",
-				"date"
-			]
-		},
-		"Cost": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Cost ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"type": {
-					"description": "Cost Type.\n@example cost",
-					"type": "string",
-					"enum": [
-						"cost",
-						"tax",
-						"excise"
-					]
-				},
-				"sale": {
-					"description": "Cost Sale.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Sale"
-				},
-				"procurement": {
-					"description": "Cost Procurement.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Procurement"
-				},
-				"partner": {
-					"description": "Cost Partner.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Partner"
-				},
-				"product": {
-					"description": "Cost Product.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Product"
-				},
-				"value": {
-					"description": "Cost Value.\n@example 500",
-					"type": "number"
-				},
-				"perUnit": {
-					"description": "Cost Per Unit.\n@example 150",
-					"type": "number"
-				},
-				"quantity": {
-					"description": "Cost Quantity.\n@example 3",
-					"type": "number"
-				},
-				"date": {
-					"description": "Cost Date.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				}
-			},
-			"required": [
-				"_id",
-				"type",
-				"sale",
-				"procurement",
-				"partner",
-				"product",
-				"value",
-				"perUnit",
-				"quantity",
-				"date"
-			]
-		},
-		"Currency": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Currency ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"currency": {
-					"description": "Currency Type.\n@example usd",
-					"type": "string",
-					"enum": [
-						"eur",
-						"usd",
-						"chf",
-						"gbp",
-						"aud",
-						"cad"
-					]
-				},
-				"date": {
-					"description": "Currency Date of Value.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"movement": {
-					"description": "Currency Movement.\n@example 0.2",
-					"type": "number"
-				},
-				"buy": {
-					"description": "Currency Buy Price.\n@example 117.4",
-					"type": "number"
-				},
-				"mid": {
-					"description": "Currency Mid Price.\n@example 117.2",
-					"type": "number"
-				},
-				"sell": {
-					"description": "Currency Sell Price.\n@example 117.0",
-					"type": "number"
-				}
-			},
-			"required": [
-				"_id",
-				"currency",
-				"date",
-				"movement",
-				"buy",
-				"mid",
-				"sell"
-			]
-		},
-		"Distillation": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Distillation ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"code": {
-					"description": "Distillation Code.\n@example FL001",
-					"type": "string"
-				},
-				"fromProduct": {
-					"description": "Distillation From Product.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Product"
-				},
-				"fromQuantity": {
-					"description": "Distillation From Quantity.\n@example 300",
-					"type": "number"
-				},
-				"toProduct": {
-					"description": "Distillation To Product.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Product"
-				},
-				"toQuantity": {
-					"description": "Distillation To Quantity.\n@example 300",
-					"type": "number"
-				},
-				"date": {
-					"description": "Distillation Date.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"note": {
-					"description": "Distillation Note.\n@example New distillation",
-					"type": "string"
-				},
-				"updatedAt": {
-					"description": "Distillation Updated At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"createdAt": {
-					"description": "Distillation Created At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				}
-			},
-			"required": [
-				"_id",
-				"code",
-				"fromProduct",
-				"fromQuantity",
-				"toProduct",
-				"toQuantity",
-				"date"
-			]
-		},
-		"Invoice": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Invoice ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"code": {
-					"descirption": "Invoice Code.\n@example FA001",
-					"type": "string"
-				},
-				"customeCode": {
-					"descirption": "Invoice Custom Code.\n@example FAKTURA-01",
-					"type": "string"
-				},
-				"sale": {
-					"description": "Invoice Sale.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Sale"
-				},
-				"partner": {
-					"description": "Invoice Partner.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Partner"
-				},
-				"status": {
-					"description": "Invoice Status.\n@example draft",
-					"$ref": "#/definitions/InvoiceStatus"
-				},
-				"date": {
-					"description": "Invoice Date.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"dueDate": {
-					"description": "Invoice Due Date.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"sendTo": {
-					"description": "Invoice Reciever.\n@example no-reply@gmail.com",
-					"type": "string"
-				},
-				"note": {
-					"description": "Invoice Note.\n@example New Invoice",
-					"type": "string"
-				},
-				"pdf": {
-					"description": "Invoice PDF Link.\n@example https://backend.destiliraj.rs/uploads/invoices/invoice-01.pdf",
-					"type": "string"
-				},
-				"updatedAt": {
-					"description": "Invoice Updated At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"createdAt": {
-					"description": "Invoice Created At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				}
-			},
-			"required": [
-				"_id",
-				"code",
-				"sale",
-				"partner",
-				"status",
-				"date",
-				"dueDate",
-				"sendTo"
-			]
-		},
+	
 		"Organisation": {
 			"type": "object",
 			"properties": {
@@ -557,460 +153,7 @@
 				"active"
 			]
 		},
-		"PackageGroup": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Package Group ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"code": {
-					"description": "Package Group Code.\n@example GA001",
-					"type": "string"
-				},
-				"name": {
-					"description": "Package Group Name.\n@example LUX",
-					"type": "string"
-				},
-				"list": {
-					"description": "Package Group List.\n@example PK001",
-					"type": "array",
-					"items": {
-						"type": "object",
-						"properties": {
-							"product": {
-								"description": "Package Group List Product.\n@example 507f191e810c19729de860ea",
-								"$ref": "#/definitions/Product"
-							},
-							"quantity": {
-								"description": "Package Group List Quantity.\n@example 1",
-								"type": "number"
-							}
-						},
-						"required": [
-							"product",
-							"quantity"
-						]
-					}
-				}
-			},
-			"required": [
-				"_id",
-				"code",
-				"name",
-				"list"
-			]
-		},
-		"Packaging": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Packaging ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"code": {
-					"description": "Packaging Code.\n@example PK001",
-					"type": "string"
-				},
-				"type": {
-					"description": "Packaging Type.\n@example Flasa",
-					"type": "string"
-				},
-				"quantity": {
-					"description": "Packaging Code.\n@example 500",
-					"type": "number"
-				}
-			},
-			"required": [
-				"_id",
-				"code",
-				"type",
-				"quantity"
-			]
-		},
-		"Partner": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Partner ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"code": {
-					"description": "Partner Code.\n@example PA001",
-					"type": "string"
-				},
-				"name": {
-					"description": "Partner Name.\n@example Zerox Destillery",
-					"type": "string"
-				},
-				"email": {
-					"description": "Partner Email.\n@example zerox@gmail.com",
-					"type": "string"
-				},
-				"city": {
-					"description": "Partner City.\n@example Nis",
-					"type": "string"
-				},
-				"address": {
-					"description": "Partner Address.\n@example Dusanova 1",
-					"type": "string"
-				},
-				"postcode": {
-					"description": "Partner Postcode.\n@example 18000",
-					"type": "string"
-				},
-				"location": {
-					"description": "Partner Location.",
-					"$ref": "#/definitions/Location"
-				},
-				"vat": {
-					"description": "Partner VAT.\n@example 123456",
-					"type": "string"
-				},
-				"registrationNumber": {
-					"description": "Partner Registration Number.\n@example 123456789",
-					"type": "string"
-				}
-			},
-			"required": [
-				"_id",
-				"code",
-				"name",
-				"email",
-				"city",
-				"address",
-				"postcode",
-				"location",
-				"vat",
-				"registrationNumber"
-			]
-		},
-		"Processing": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Processing ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"code": {
-					"description": "Processing Code.\n@example FL001",
-					"type": "string"
-				},
-				"fromProduct": {
-					"description": "Processing From Product.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Product"
-				},
-				"fromQuantity": {
-					"description": "Processing From Quantity.\n@example 300",
-					"type": "number"
-				},
-				"toProduct": {
-					"description": "Processing To Product.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Product"
-				},
-				"toQuantity": {
-					"description": "Processing To Quantity.\n@example 300",
-					"type": "number"
-				},
-				"date": {
-					"description": "Processing Date.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"note": {
-					"description": "Processing Note.\n@example New processing",
-					"type": "string"
-				},
-				"updatedAt": {
-					"description": "Processing Updated At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"createdAt": {
-					"description": "Processing Created At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				}
-			},
-			"required": [
-				"_id",
-				"code",
-				"fromProduct",
-				"fromQuantity",
-				"toProduct",
-				"toQuantity",
-				"date"
-			]
-		},
-		"Procurement": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Procurement ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"code": {
-					"description": "Procurement Code.\n@example PR001",
-					"type": "string"
-				},
-				"partner": {
-					"description": "Procurement Partner.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Partner"
-				},
-				"vatRate": {
-					"description": "Procurement Vat Rate.\n@example 10",
-					"$ref": "#/definitions/VatRate"
-				},
-				"priceNet": {
-					"description": "Procurement Price Net.\n@example 500",
-					"type": "number"
-				},
-				"price": {
-					"description": "Procurement Price.\n@example 550",
-					"type": "number"
-				},
-				"products": {
-					"description": "Procurement Products.",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/ProcurementSaleProduct"
-					}
-				},
-				"date": {
-					"description": "Procurement Date.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"note": {
-					"description": "Procurement Note.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string"
-				},
-				"updatedAt": {
-					"description": "Procurement Updated At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"createdAt": {
-					"description": "Procurement Created At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				}
-			},
-			"required": [
-				"_id",
-				"code",
-				"partner",
-				"vatRate",
-				"priceNet",
-				"price",
-				"products",
-				"date"
-			]
-		},
-		"Product": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Product ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"code": {
-					"description": "Product Code.\n@example LS001",
-					"type": "string"
-				},
-				"name": {
-					"description": "Product Name.\n@example Sljiva",
-					"type": "string"
-				},
-				"type": {
-					"description": "Product Type.\n@example raw",
-					"type": "string"
-				},
-				"quantity": {
-					"description": "Product Quantity.\n@example 109",
-					"type": "number"
-				},
-				"unit": {
-					"description": "Product Measurement Unit.\n@example kg",
-					"$ref": "#/definitions/ProductUnit"
-				},
-				"price": {
-					"description": "Product Starting Price.\n@example 1500",
-					"type": "number"
-				},
-				"bottle": {
-					"description": "Product Bottle Size.\n@example 3",
-					"type": "number"
-				},
-				"alcoholPrecentage": {
-					"description": "Product Alcohol Precentage.\n@example 40",
-					"type": "number"
-				},
-				"excise": {
-					"description": "Product Excise.\n@example 130",
-					"type": "number"
-				}
-			},
-			"required": [
-				"_id",
-				"code",
-				"name",
-				"type",
-				"quantity",
-				"unit"
-			]
-		},
-		"Profit": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Profit ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"type": {
-					"description": "Profit Type.\n@example profit",
-					"type": "string",
-					"enum": [
-						"profit",
-						"tax"
-					]
-				},
-				"sale": {
-					"description": "Profit Sale.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Sale"
-				},
-				"partner": {
-					"description": "Cost Partner.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Partner"
-				},
-				"product": {
-					"description": "Cost Product.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Product"
-				},
-				"value": {
-					"description": "Cost Value.\n@example 500",
-					"type": "number"
-				},
-				"perUnit": {
-					"description": "Cost Per Unit.\n@example 150",
-					"type": "number"
-				},
-				"quantity": {
-					"description": "Cost Quantity.\n@example 3",
-					"type": "number"
-				},
-				"date": {
-					"description": "Cost Date.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				}
-			},
-			"required": [
-				"_id",
-				"type",
-				"sale",
-				"partner",
-				"product",
-				"value",
-				"perUnit",
-				"quantity",
-				"date"
-			]
-		},
-		"Sale": {
-			"type": "object",
-			"properties": {
-				"_id": {
-					"description": "Sale ID.\n@example 507f191e810c19729de860ea",
-					"type": "string",
-					"format": "uuid"
-				},
-				"code": {
-					"description": "Sale Code.\n@example PR001",
-					"type": "string"
-				},
-				"type": {
-					"description": "Sale Type.\n@example PR001",
-					"type": "string",
-					"enum": [
-						"regular"
-					]
-				},
-				"partner": {
-					"description": "Sale Partner.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Partner"
-				},
-				"vatRate": {
-					"description": "Sale Vat Rate.\n@example 10",
-					"$ref": "#/definitions/VatRate"
-				},
-				"priceNet": {
-					"description": "Sale Price Net.\n@example 500",
-					"type": "number"
-				},
-				"currency": {
-					"description": "Sale Currency.\n@example rsd",
-					"type": "string",
-					"enum": [
-						"rsd"
-					]
-				},
-				"price": {
-					"description": "Sale Price.\n@example 550",
-					"type": "number"
-				},
-				"products": {
-					"description": "Sale Products.",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/ProcurementSaleProduct"
-					}
-				},
-				"invoice": {
-					"description": "Sale Invoice.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Invoice"
-				},
-				"date": {
-					"description": "Sale Date.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"note": {
-					"description": "Sale Note.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string"
-				},
-				"updatedAt": {
-					"description": "Sale Updated At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"createdAt": {
-					"description": "Sale Created At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				}
-			},
-			"required": [
-				"_id",
-				"code",
-				"type",
-				"partner",
-				"vatRate",
-				"currency",
-				"priceNet",
-				"price",
-				"products",
-				"invoice",
-				"date"
-			]
-		},
+
 		"User": {
 			"type": "object",
 			"properties": {
@@ -1071,52 +214,119 @@
 				"confirmed"
 			]
 		},
-		"Waste": {
+
+		"Land": {
 			"type": "object",
 			"properties": {
 				"_id": {
-					"description": "Waste ID.\n@example 507f191e810c19729de860ea",
+					"description": "Land ID.\n@example 507f191e810c19729de860ea",
 					"type": "string",
 					"format": "uuid"
 				},
-				"code": {
-					"description": "Waste Code.\n@example LR001",
+				"organisation": {
+					"description": "Assigned Organisation.",
+					"$ref": "#/definitions/Organisation"
+				},
+				
+				"name": {
+					"description": "Land Name.\n@example Africarare land",
 					"type": "string"
 				},
-				"product": {
-					"description": "Waste Product.\n@example 507f191e810c19729de860ea",
-					"$ref": "#/definitions/Product"
-				},
-				"quantity": {
-					"description": "Waste Quantity.\n@example 500",
-					"type": "number"
-				},
-				"date": {
-					"description": "Waste Date.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"note": {
-					"description": "Waste Note.\n@example LS001",
+
+				"mapId": {
+					"description": "Land mapId.\n@example 507f191e810c34729de860ea",
 					"type": "string"
-				},
-				"updatedAt": {
-					"description": "Waste Updated At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
-				},
-				"createdAt": {
-					"description": "Waste Created At.\n@example 2022-06-07T00:00:00.000+00:00",
-					"type": "string",
-					"format": "date-time"
 				}
 			},
 			"required": [
 				"_id",
-				"code",
-				"product",
-				"quantity",
-				"date"
+				"organisation",
+				"name",
+				"mapId"
+			]
+		},
+
+		"Experience": {
+			"type": "object",
+			"properties": {
+				"_id": {
+					"description": "Experience ID.\n@example 507f191e810c19729de870ea",
+					"type": "string",
+					"format": "uuid"
+				},
+				"land": {
+					"description": "Assigned Land.",
+					"$ref": "#/definitions/Land"
+				},
+				
+				"name": {
+					"description": "Experience Name.\n@example Africarare experience",
+					"type": "string"
+				}
+			},
+			"required": [
+				"_id",
+				"land",
+				"name"
+			]
+		},
+
+		"Level": {
+			"type": "object",
+			"properties": {
+				"_id": {
+					"description": "Level ID.\n@example 40gh191e910c19729de870ea",
+					"type": "string",
+					"format": "uuid"
+				},
+				"experience": {
+					"description": "Assigned experience.",
+					"$ref": "#/definitions/Experience"
+				},
+				
+				"scene": {
+					"description": "Experience Scene.\n@example test",
+					"type": "string"
+				}
+			},
+			"required": [
+				"_id",
+				"experience",
+				"scene"
+			]
+		},
+
+		"Feature": {
+			"type": "object",
+			"properties": {
+				"_id": {
+					"description": "Feature ID.\n@example 63fccc1a9ea295650b283124",
+					"type": "string",
+					"format": "uuid"
+				},
+				"experience": {
+					"description": "Assigned experience.",
+					"$ref": "#/definitions/Experience"
+				},
+				"level": {
+					"description": "Assigned level.",
+					"$ref": "#/definitions/Level"
+				},
+				
+				"type": {
+					"description": "Feature type.\n@example chatlog",
+					"type": "string",
+					"enum": [
+						"access",
+						"chatlog",
+						"experience-avatars"
+					]
+				}
+			},
+			"required": [
+				"_id",
+				"experience",
+				"scene"
 			]
 		}
 	}
