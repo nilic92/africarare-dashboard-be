@@ -5,7 +5,7 @@ import path from 'path';
 export const defaultLocale = 'en';
 
 i18n.configure({
-	locales: ['en', 'sr'],
+	locales: ['en'],
 	defaultLocale,
 	header: 'accept-language',
 	directory: path.join(__dirname, '../', 'locales'),
