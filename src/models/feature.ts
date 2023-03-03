@@ -2,30 +2,22 @@ import { Schema, model, Document } from 'mongoose';
 
 export enum FeatureTypeEnum {
 	ACCESS = 'access',
+	PORTAL = 'portal',
+	LEADERBOARD = 'leaderboard',
 	CHATLOG = 'chatlog',
+	RESTRICTED_PEN_DRAWING = 'restricted-pen-drawing',
 	EXPERIENCE_AVATARS = 'experience-avatars',
+	PRESENTATION = 'presentation',
+	PARTICIPATION = 'participation',
+	INFO_PIN = 'info-pin',
 }
 
 interface IFeature extends Document {
-	experience: string;
-	level: string;
 	type: string;
 }
 
 const featureSchema: Schema = new Schema(
 	{
-		experience: {
-			type: Schema.Types.ObjectId,
-			ref: 'Experience',
-			required: false,
-			select: false,
-		},
-		level: {
-			type: Schema.Types.ObjectId,
-			ref: 'Level',
-			required: false,
-			select: false,
-		},
 		type: {
 			type: String,
 			enum: FeatureTypeEnum,

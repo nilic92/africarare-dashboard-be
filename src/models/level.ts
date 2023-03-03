@@ -2,8 +2,8 @@ import { Schema, model, Document } from 'mongoose';
 
 interface ILevel extends Document {
 	name: string;
-	experience: string;
 	scene: string;
+	features: string[];
 }
 
 const levelSchema: Schema = new Schema(
@@ -12,16 +12,16 @@ const levelSchema: Schema = new Schema(
 			type: String,
 			required: true,
 		},
-		experience: {
-			type: Schema.Types.ObjectId,
-			ref: 'Experience',
-			required: true,
-			select: false,
-		},
 		scene: {
 			type: String,
 			required: true,
 		},
+		features: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'Feature',
+			},
+		],
 	},
 	{ timestamps: true }
 );

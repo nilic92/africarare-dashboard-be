@@ -1,39 +1,21 @@
 import { RequestHandler } from 'express';
-import { queryFilter } from 'helpers/filters';
 
 import i18n from 'helpers/i18n';
-import { createMeta } from 'helpers/meta';
 import Level from 'models/level';
-
-export const getLevels: RequestHandler = async (req, res, next) => {
-	try {
-
-		const { data: level, count } = await queryFilter({
-			Model: Level,
-			query: req.query,
-			searchFields: ['name'],
-		});
-
-		res.json({
-			data: level,
-			meta: createMeta({ count }),
-		});
-	} catch (err) {
-		next(err);
-	}
-}
-	
+import Experience from 'models/experience';
 
 export const postLevel: RequestHandler = async (req, res, next) => {
 	try {
-		const { name, experience, scene } = req.body;
-		await Level.create({
+		const { experience, name, scene } = req.body;
+		const level = await Level.create({
 			name,
-			experience,
-            scene,
+			scene,
+		});
+		await Experience.findByIdAndUpdate(experience, {
+			$push: { levels: level._id },
 		});
 
-		res.json({ 
+		res.json({
 			message: i18n.__('CONTROLLER.LEVEL.POST.ADDED'),
 		});
 	} catch (err) {
@@ -44,12 +26,11 @@ export const postLevel: RequestHandler = async (req, res, next) => {
 export const putLevel: RequestHandler = async (req, res, next) => {
 	try {
 		const { id } = req.params;
-        const { name, experience, scene } = req.body;
+		const { name, scene } = req.body;
 
 		await Level.findByIdAndUpdate(id, {
-            name,
-			experience,
-            scene
+			name,
+			scene,
 		});
 
 		res.json({
@@ -65,6 +46,13 @@ export const deleteLevel: RequestHandler = async (req, res, next) => {
 		const { id } = req.params;
 
 		await Level.findByIdAndDelete(id);
+
+		await Experience.updateMany(
+			{},
+			{
+				$pull: { levels: id },
+			}
+		);
 
 		res.json({
 			message: i18n.__('CONTROLLER.LEVEL.DELETE.DELETED'),

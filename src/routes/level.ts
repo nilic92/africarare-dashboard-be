@@ -2,26 +2,15 @@ import { Router } from 'express';
 import defineRoutes from 'helpers/defineRoutes';
 
 import {
-	getLevels as getLevelsController,
 	postLevel as postLevelController,
 	putLevel as putLevelController,
 	deleteLevel as deleteLevelController,
 	getSingleLevel as getSingleLevelController,
 } from 'controllers/level';
-import {
-	postLevel as postLevelValidator,
-	putLevel as putlevelValidator,
-} from 'validators/level';
+import { postLevel as postLevelValidator, putLevel as putlevelValidator } from 'validators/level';
 
 const router = Router();
 defineRoutes(router, [
-	{
-		method: 'get',
-		route: '/',
-		roles: ['portal-admin'],
-		permissions: ['read:levels'],
-		controller: getLevelsController,
-	},
 	{
 		method: 'post',
 		route: '/',

@@ -3,7 +3,6 @@ import i18n from 'helpers/i18n';
 import Experience from 'models/experience';
 
 export const postLevel = [
-	body('name', i18n.__('VALIDATOR.NAME.REQUIRED')).notEmpty(),
 	body('experience', i18n.__('VALIDATOR.EXPERIENCE.REQUIRED'))
 		.notEmpty()
 		.custom(async (value: string) => {
@@ -15,7 +14,11 @@ export const postLevel = [
 
 			return true;
 		}),
+	body('name', i18n.__('VALIDATOR.NAME.REQUIRED')).notEmpty(),
 	body('scene', i18n.__('VALIDATOR.SCENE.REQUIRED')).notEmpty(),
 ];
 
-export const putLevel = [body('name', i18n.__('VALIDATOR.NAME.REQUIRED')).notEmpty()];
+export const putLevel = [
+	body('name', i18n.__('VALIDATOR.NAME.REQUIRED')).notEmpty(),
+	body('scene', i18n.__('VALIDATOR.SCENE.REQUIRED')).notEmpty(),
+];

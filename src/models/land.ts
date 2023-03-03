@@ -3,7 +3,7 @@ import { Schema, model, Document } from 'mongoose';
 interface ILand extends Document {
 	name: string;
 	organisation: string;
-	mapId: number;
+	mapId: string;
 }
 
 const landSchema: Schema = new Schema(
@@ -16,12 +16,14 @@ const landSchema: Schema = new Schema(
 			type: Schema.Types.ObjectId,
 			ref: 'Organisation',
 			required: true,
-			select: false,
 		},
 		mapId: {
-			type: Number,
+			type: String,
 			required: true,
 			unique: true,
+		},
+		previewImage: {
+			type: String,
 		},
 	},
 	{ timestamps: true }

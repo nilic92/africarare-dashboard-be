@@ -7,15 +7,18 @@ import { createMeta } from 'helpers/meta';
 
 export const getExperiences: RequestHandler = async (req, res, next) => {
 	try {
-
-		const { data: experience, count } = await queryFilter({
+		const { data: experiences, count } = await queryFilter({
 			Model: Experience,
 			query: req.query,
 			searchFields: ['name'],
+			populate: 'levels levels.features features',
+		});
+		experiences.forEach((experience) => {
+			experience.levels = [];
 		});
 
 		res.json({
-			data: experience,
+			data: experiences,
 			meta: createMeta({ count }),
 		});
 	} catch (err) {
@@ -32,7 +35,7 @@ export const postExperience: RequestHandler = async (req, res, next) => {
 			land,
 		});
 
-		res.json({ 
+		res.json({
 			message: i18n.__('CONTROLLER.EXPERIENCE.POST_LAND.ADDED'),
 		});
 	} catch (err) {
@@ -46,7 +49,7 @@ export const putExperience: RequestHandler = async (req, res, next) => {
 		const { name, land } = req.body;
 
 		await Experience.findByIdAndUpdate(id, {
-            name,
+			name,
 			land,
 		});
 
@@ -72,13 +75,12 @@ export const deleteExperience: RequestHandler = async (req, res, next) => {
 	}
 };
 
-
 export const getSingleExperience: RequestHandler = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 
 		const experience = await Experience.findById(id);
-		
+
 		res.json({
 			data: experience,
 		});

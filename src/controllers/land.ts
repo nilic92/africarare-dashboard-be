@@ -1,18 +1,18 @@
-
 import { RequestHandler } from 'express';
 import { queryFilter } from 'helpers/filters';
 
 import i18n from 'helpers/i18n';
 import { createMeta } from 'helpers/meta';
 import Land from 'models/land';
+import { getWebstieField } from 'utils/cherio/getWebsiteField';
 
 export const getLands: RequestHandler = async (req, res, next) => {
 	try {
-
 		const { data: lands, count } = await queryFilter({
 			Model: Land,
 			query: req.query,
 			searchFields: ['name'],
+			populate: 'organisation',
 		});
 
 		res.json({
@@ -27,11 +27,18 @@ export const getLands: RequestHandler = async (req, res, next) => {
 export const postLand: RequestHandler = async (req, res, next) => {
 	try {
 		const { name, organisation, mapId } = req.body;
-		
+
+		const previewImage = await getWebstieField(
+			`https://appafricarare.io/${mapId}`,
+			'head meta[property="og:image"]',
+			'content'
+		);
+
 		await Land.create({
 			name,
 			organisation,
 			mapId,
+			previewImage,
 		});
 
 		res.json({
@@ -47,10 +54,17 @@ export const putLand: RequestHandler = async (req, res, next) => {
 		const { id } = req.params;
 		const { name, organisation, mapId } = req.body;
 
+		const previewImage = await getWebstieField(
+			`https://appafricarare.io/${mapId}`,
+			'head meta[property="og:image"]',
+			'content'
+		);
+
 		await Land.findByIdAndUpdate(id, {
-            name,
+			name,
 			organisation,
 			mapId,
+			previewImage,
 		});
 
 		res.json({

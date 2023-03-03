@@ -1,36 +1,22 @@
-
 import { RequestHandler } from 'express';
-import { queryFilter } from 'helpers/filters';
+import Experience from 'models/experience';
+import Level from 'models/level';
 
 import i18n from 'helpers/i18n';
 import Feature from 'models/feature';
-import { createMeta } from 'helpers/meta';
-
-export const getFeatures: RequestHandler = async (req, res, next) => {
-	try {
-		const { data: feature, count } = await queryFilter({
-			Model: Feature,
-			query: req.query,
-			searchFields: [],
-		});
-
-		res.json({
-			data: feature,
-			meta: createMeta({ count }),
-		});
-	} catch (err) {
-		next(err);
-	}
-};
 
 export const postFeature: RequestHandler = async (req, res, next) => {
 	try {
-		const { experience, level, type } = req.body;
-		
-		await Feature.create({
-			experience,
-			level,
+		const { model, modelId, type } = req.body;
+
+		const feature = await Feature.create({
 			type,
+		});
+
+		const Model = model === 'experience' ? Experience : Level;
+		//@ts-expect-error
+		await Model.findByIdAndUpdate(modelId, {
+			$push: { features: feature._id },
 		});
 
 		res.json({
@@ -44,11 +30,9 @@ export const postFeature: RequestHandler = async (req, res, next) => {
 export const putFeature: RequestHandler = async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		const { experience, level, type } = req.body;
+		const { type } = req.body;
 
 		await Feature.findByIdAndUpdate(id, {
-            experience,
-			level,
 			type,
 		});
 
@@ -79,6 +63,15 @@ export const getSingleFeature: RequestHandler = async (req, res, next) => {
 		const { id } = req.params;
 
 		const feature = await Feature.findById(id);
+
+		for await (const Model of [Experience, Level]) {
+			await Model.updateMany(
+				{},
+				{
+					$pull: { features: id },
+				}
+			);
+		}
 
 		res.json({
 			data: feature,

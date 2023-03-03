@@ -68,7 +68,6 @@
 				"lng"
 			]
 		},
-	
 		"Organisation": {
 			"type": "object",
 			"properties": {
@@ -153,7 +152,6 @@
 				"active"
 			]
 		},
-
 		"User": {
 			"type": "object",
 			"properties": {
@@ -213,7 +211,6 @@
 				"confirmed"
 			]
 		},
-
 		"Land": {
 			"type": "object",
 			"properties": {
@@ -226,14 +223,16 @@
 					"description": "Assigned Organisation.",
 					"$ref": "#/definitions/Organisation"
 				},
-				
 				"name": {
 					"description": "Land Name.\n@example Africarare land",
 					"type": "string"
 				},
-
 				"mapId": {
 					"description": "Land mapId.\n@example 507f191e810c34729de860ea",
+					"type": "string"
+				},
+				"previewImage": {
+					"description": "Land preview image.\n@example https://africarare-assets.appafricarare.io/files/7e8a2939-f38a-4f00-9aeb-7877697ed5ab.jpg",
 					"type": "string"
 				}
 			},
@@ -244,7 +243,6 @@
 				"mapId"
 			]
 		},
-
 		"Experience": {
 			"type": "object",
 			"properties": {
@@ -257,10 +255,21 @@
 					"description": "Assigned Land.",
 					"$ref": "#/definitions/Land"
 				},
-				
 				"name": {
 					"description": "Experience Name.\n@example Africarare experience",
 					"type": "string"
+				},
+				"features": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Feature"
+					}
+				},
+				"levels": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Level"
+					}
 				}
 			},
 			"required": [
@@ -269,7 +278,6 @@
 				"name"
 			]
 		},
-
 		"Level": {
 			"type": "object",
 			"properties": {
@@ -278,14 +286,19 @@
 					"type": "string",
 					"format": "uuid"
 				},
-				"experience": {
-					"description": "Assigned experience.",
-					"$ref": "#/definitions/Experience"
+				"name": {
+					"description": "Experience Name.",
+					"type": "string"
 				},
-				
 				"scene": {
 					"description": "Experience Scene.\n@example test",
 					"type": "string"
+				},
+				"features": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Feature"
+					}
 				}
 			},
 			"required": [
@@ -294,7 +307,6 @@
 				"scene"
 			]
 		},
-
 		"Feature": {
 			"type": "object",
 			"properties": {
@@ -303,22 +315,19 @@
 					"type": "string",
 					"format": "uuid"
 				},
-				"experience": {
-					"description": "Assigned experience.",
-					"$ref": "#/definitions/Experience"
-				},
-				"level": {
-					"description": "Assigned level.",
-					"$ref": "#/definitions/Level"
-				},
-				
 				"type": {
 					"description": "Feature type.\n@example chatlog",
 					"type": "string",
 					"enum": [
 						"access",
+						"portal",
+						"leaderboard",
 						"chatlog",
-						"experience-avatars"
+						"restricted-pen-drawing",
+						"experience-avatars",
+						"presentation",
+						"participation",
+						"info-pin"
 					]
 				}
 			},
