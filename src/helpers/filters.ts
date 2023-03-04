@@ -8,7 +8,7 @@ import { populateDates } from './dateMapping';
 interface IFilters {
 	Model: Model<any>;
 	query: any;
-	populate?: string;
+	populate?: string | { path: string; populate?: { path: string } }[];
 	searchFields?: string[];
 	defaultFilters?: { [x: string]: any };
 }
@@ -61,7 +61,11 @@ export const queryFilter = async ({ Model, query, populate, searchFields, defaul
 
 	let modelQuery = Model.find(findBy);
 	if (populate) {
-		modelQuery = modelQuery.populate({ path: populate });
+		if (typeof populate === 'string') {
+			modelQuery = modelQuery.populate({ path: populate });
+		} else {
+			modelQuery = modelQuery.populate(populate);
+		}
 	}
 	if (sort) {
 		modelQuery = modelQuery.sort(sort);

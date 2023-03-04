@@ -11,10 +11,8 @@ export const getExperiences: RequestHandler = async (req, res, next) => {
 			Model: Experience,
 			query: req.query,
 			searchFields: ['name'],
-			populate: 'levels levels.features features',
-		});
-		experiences.forEach((experience) => {
-			experience.levels = [];
+			populate: [{ path: 'levels' }, { path: 'features' }, { path: 'levels', populate: { path: 'features' } }],
+			// populate: 'levels levels.features features',
 		});
 
 		res.json({
