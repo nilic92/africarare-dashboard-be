@@ -1,5 +1,6 @@
 import { body } from 'express-validator';
 import i18n from 'helpers/i18n';
+import { FeatureTypeEnum } from 'models/feature';
 // import Experience from 'models/feature';
 
 // import Level from 'models/level';
@@ -31,13 +32,13 @@ export const postFeature = [
 
 	body('type', i18n.__('VALIDATOR.FEATURE_TYPE.REQUIRED'))
 		.notEmpty()
-		.isIn(['access', 'chatlog', 'experience-avatars'])
+		.isIn(Object.values(FeatureTypeEnum))
 		.withMessage(i18n.__('VALIDATOR.FEATURETYPE.ONE_OF')),
 ];
 
 export const putFeature = [
 	body('type', i18n.__('VALIDATOR.FEATURE_TYPE.REQUIRED'))
-	.notEmpty()
-	.isIn(['access', 'chatlog', 'experience-avatars'])
-	.withMessage(i18n.__('VALIDATOR.FEATURETYPE.ONE_OF')),
+		.notEmpty()
+		.isIn(Object.values(FeatureTypeEnum))
+		.withMessage(i18n.__('VALIDATOR.FEATURETYPE.ONE_OF')),
 ];
